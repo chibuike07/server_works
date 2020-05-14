@@ -17,21 +17,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//connect to db
-
-//creat function for user
-// const createUser = () => {
-//   const res = new User({
-//     firstName: "chime",
-//     lastName: "chibuike",
-//     phoneNumber: 08169543479,
-//     favoriteColor: "black",
-//     isActive: true
-//   });
-//   res.save();
-//   console.log(res);
-// };
-// createUser();
 // getting form value datas
 app.post("/", (req, res) => {
   console.log(req.body);
@@ -53,14 +38,47 @@ app.post("/", (req, res) => {
   console.log(newUser);
 });
 
+// geting the collection from the mongodb
+app.get("/app", async (req, res) => {
+  const UserObject = await User.find(); //geting the collection from mongodb
+  // console.log(UserObject);
+  res.send(UserObject); //sending the collection to the route been specified
+});
+
+// app.get("/app/:id/", async (req, res) => {
+//   // this get the id from the route url
+//   const { id } = req.params;
+//   const UserObject = await User.findById({ _id: id });
+
+//   res.send(UserObject); //sending the collection to the route been specified
+// });
+//find by firstName
+// app.get("/app/:firstName/", async (req, res) => {
+//   // this get the id from the route url
+//   const { firstName } = req.params;
+//   const UserObject = await User.find({ firstName: firstName }).limit(2);
+
+//   res.send(UserObject); //sending the collection to the route been specified
+// });
+// adding limit
+// app.get("/app/:id", async (req, res) => {
+//   // this get the id from the route url
+//   const { id } = req.params;
+//   const UserObject = await User.findById({ _id: id }).limit(10);
+
+//   res.send(UserObject); //sending the collection to the route been specified
+// });
+app.get("/", (req, res) => res.send("hello world"));
+app.get("/api/post", (req, res) => res.send("we are fetching all post"));
+//send html file
+app.get("/api/pages", (req, res) =>
+  res.sendFile(__dirname + "/Html file/index.html")
+);
+//connect to db
 mongoose
   .connect(MONGODB_URI, options)
   .then(() => console.log("conneted successfully"))
   .catch(err => console.log("error occured : " + err));
-app.get("/", (req, res) => res.send("hello world"));
-//   app.get("/", (req, res) => res.send("hello world"));
-app.get("/api/post", (req, res) => res.send("we are fetching all post"));
+
 //start the server
 app.listen(PORT, () => console.log(`server ready on http://localhost:${PORT}`));
-// learn to use from this link https://openclassrooms.com/en/courses/5614116-go-full-stack-with-node-js-express-and-mongodb
-//https://zellwk.com/blog/crud-express-mongodb/

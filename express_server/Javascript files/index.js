@@ -11,7 +11,6 @@ const handleSubmit = async () => {
     favoriteColor,
     isActive
   };
-  //   console.log(formDatas);
   try {
     await fetch("http://localhost:7000/", {
       method: "POST",
@@ -25,3 +24,17 @@ const handleSubmit = async () => {
     console.log(err.message);
   }
 };
+
+function getMembers() {
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow"
+  };
+
+  fetch("http://localhost:7000/app/", requestOptions)
+    .then(response => response.json())
+    .then(result => console.log(result))
+    .catch(error => console.log("error", error));
+}
+getMembers();
+// https://zellwk.com/blog/crud-express-mongodb/
