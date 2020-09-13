@@ -68,12 +68,25 @@ app.get("/app", async (req, res) => {
 
 //   res.send(UserObject); //sending the collection to the route been specified
 // });
+
+app.put("/app/:id", async (req, res) => {
+  const { id } = req.params;
+  await User.findByIdAndUpdate(id, req.body, (err, updated) => {
+    if (err) {
+      return err;
+    } else {
+      console.log(updated);
+      res.send(updated);
+    }
+  });
+  // console.log(id);
+});
 app.get("/", (req, res) => res.send("hello world"));
 app.get("/api/post", (req, res) => res.send("we are fetching all post"));
 //send html file
-app.get("/api/pages", (req, res) =>
-  res.sendFile(__dirname + "/Html file/index.html")
-);
+// app.get("/api/pages", (req, res) =>
+//   res.sendFile(__dirname + "/Html file/index.html")
+// );
 //connect to db
 mongoose
   .connect(MONGODB_URI, options)
