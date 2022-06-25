@@ -16,6 +16,6 @@
     "graphql-iso-date": "^3.6.1",
     "graphql-type-json": "^0.3.1",
     "mongoose": "^5.9.6",
-    "node-fetch": ">=2.6.1"
+    "node-fetch": ">=2.6.7"
   }
 }
